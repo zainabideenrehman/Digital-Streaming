@@ -1,9 +1,0 @@
-Camera_1 https://www.youtube.com/watch?v=IHxRixEBVAU
-Camera_2 https://www.youtube.com/watch?v=sQxp13k_8IU
-Camera_3 https://www.youtube.com/watch?v=9qxei9HHP7o
-Camera_4 https://www.youtube.com/watch?v=Q_ljyeO9hpE
-Camera_5 https://www.youtube.com/watch?v=78WLOVwGo2s
-Camera_6 https://www.youtube.com/watch?v=HK6B2da3DPA
-Camera_7 https://www.youtube.com/watch?v=EPwOPr2xkYo
-Camera_8 https://www.youtube.com/watch?v=tJVI_V2oOFc
-Camera_9 https://www.youtube.com/watch?v=h7B23OmJ0b4
