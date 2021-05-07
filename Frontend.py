@@ -6,6 +6,7 @@ import sqlite3
 import os
 import shutil
 from Screen_4 import MainWindow as Screen_4
+from Admin import MainWindow as Admin
 
 
 root = QFileInfo(__file__).absolutePath()
@@ -228,8 +229,8 @@ class MainWindow(QMainWindow):
         elif self.Function_Dropbox.currentIndex() == 1:
             
             if self.linedit1.text() == "a" and self.linedit2.text() == "a":
-                self.Full_Screen = Full_Screen(self.width, self.height, self, root)
-                self.Full_Screen.show()   
+                self.Admin = Admin(self.width, self.height, self, root)
+                self.Admin.show()   
                 self.close()
 
             elif self.linedit1.text() != str(self.rows[3]):

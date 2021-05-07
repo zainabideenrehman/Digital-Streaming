@@ -12,13 +12,15 @@ from datetime import timedelta
 import re
 import os.path
 from os import path
+import pafy
 
 class CamThread(QThread):
     changePixmap = pyqtSignal(QImage)
 
-    def __init__(self,width, height, cam_name):
+    def __init__(self,width, height, cam_name, url):
         super().__init__()
         self.cam_name = cam_name
+        self.url = url
         self.width = width
         self.height = height
         self.Flag_Cam = False
@@ -41,7 +43,10 @@ class CamThread(QThread):
                     self.changePixmap.emit(p)
                     return
                 try:
-                    cap = cv2.VideoCapture('http://46.151.101.149:8081/?action=stream')
+                    url = self.url
+                    video = pafy.new(url)
+                    best = video.getbest(preftype="mp4")
+                    cap = cv2.VideoCapture(best.url)
                     time.sleep(0.01)
                 except:
                     continue
@@ -83,9 +88,10 @@ class CamThread(QThread):
                     self.changePixmap.emit(p)
                     break
                 else:
+                    img_input = cv2.cvtColor(img_input, cv2.COLOR_BGR2RGB)
                     p = self.convertToQtImage(img_input, self.width, self.height)
                     self.changePixmap.emit(p)
-                    time.sleep(0.01)
+                    time.sleep(0.02)
 
 
     def convertToQtImage(self, frame, width, height):

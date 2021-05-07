@@ -10,10 +10,12 @@ from CamThread import CamThread
 #from Screen_4 import MainWindow as Screen_4
 
 class MainWindow(QMainWindow):
-    def __init__(self, width, height,parent, folder_path, FourOrNine):
+    def __init__(self, width, height,parent, folder_path, FourOrNine, CamName, url):
         super().__init__()
 
         self.parent=parent
+        self.CamName = CamName
+        self.url = url
         self.FourOrNine = FourOrNine
         self.folder_path = folder_path
         self.b = None
@@ -58,10 +60,10 @@ class MainWindow(QMainWindow):
         self.camOne.setStyleSheet("background-color:black; border-width:3px; border-style:solid; border-color:#0c7b93;")
         self.camOne.setFixedSize((int(self.width/1.01)), int(self.height/1.2))
 
-        self.camOneTitle = QLabel("                                                                                                                                             Camera 1")
+        self.camOneTitle = QLabel("                                                                                                                                             "+self.CamName)
         self.camOneTitle.setStyleSheet("font-size:{0}px; text-align: center; font-weight:bold; color:black;".format(int(height / 56)))
 
-        self.camOneThread = CamThread(width=int(self.width /1.01), height=int(self.height /1.2), cam_name='CamOne')
+        self.camOneThread = CamThread(width=int(self.width /1.01), height=int(self.height /1.2), cam_name=CamName,  url = self.url)
 
         #self.camWidget = QWidget()
         #self.camWidget.setLayout(self.camOne)
@@ -170,6 +172,8 @@ class MainWindow(QMainWindow):
         self.parent.Four.setDisabled(True)
         self.parent.Nine.setDisabled(True)
         self.parent.close_Btn.setDisabled(True)
+        self.parent.click_Screen = False
+        
         
 
         if self.FourOrNine == "Four":

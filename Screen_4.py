@@ -53,41 +53,65 @@ class MainWindow(QMainWindow):
         #self.main_layout = QTabWidget()
         #self.main_layout.setFixedSize(int(self.width/1.01), int(self.height/1.2))
 
+        Camera_File = open(str(self.folder_path) + "./Files/Camera_IPs.txt", "r+")
+
+        Camera_File.seek(0)
+
+        lines = Camera_File.readlines()
+
+        self.cam1_url = lines[0].strip()
+        self.cam1_url = self.cam1_url.split(" ")
+        self.cam1_url = self.cam1_url[1]
+
+        self.cam2_url = lines[1].strip()
+        self.cam2_url = self.cam2_url.split(" ")
+        self.cam2_url = self.cam2_url[1]
+
+        self.cam3_url = lines[2].strip()
+        self.cam3_url = self.cam3_url.split(" ")
+        self.cam3_url = self.cam3_url[1]
+
+        self.cam4_url = lines[3].strip()
+        self.cam4_url = self.cam4_url.split(" ")
+        self.cam4_url = self.cam4_url[1]
+
+        self.click_Screen = False
+
         self.camOne = QLabel()
         self.camOne.setMouseTracking(True)
-        self.camOne.mousePressEvent = self.getFullScreen
+        self.camOne.mousePressEvent = self.getScreen1
         self.camOne.setStyleSheet("background-color:black; border-width:3px; border-style:solid; border-color:#0c7b93;")
         self.camOne.setFixedSize((int(self.width/2.5)), int(self.height/2.7))
         self.camOneTitle = QLabel(" Camera 1")
         self.camOneTitle.setStyleSheet("font-size:{0}px; font-weight:bold; color:black;".format(int(height / 56)))
-        self.camOneThread = CamThread(width=int(self.width /2.5), height=int(self.height /2.7), cam_name='CamOne')
+        self.camOneThread = CamThread(width=int(self.width /2.5), height=int(self.height /2.7), cam_name='CamOne', url = self.cam1_url)
 
         self.camTwo = QLabel()
         self.camTwo.setMouseTracking(True)
-        self.camTwo.mousePressEvent = self.getFullScreen
+        self.camTwo.mousePressEvent = self.getScreen2
         self.camTwo.setStyleSheet("background-color:black; border-width:3px; border-style:solid; border-color:#0c7b93;")
         self.camTwo.setFixedSize((int(self.width/2.5)), int(self.height/2.7))
         self.camTwoTitle = QLabel(" Camera 2")
         self.camTwoTitle.setStyleSheet("font-size:{0}px; font-weight:bold; color:black;".format(int(height / 56)))
-        self.camTwoThread = CamThread(width=int(self.width /2.5), height=int(self.height /2.7), cam_name='CamOne')
+        self.camTwoThread = CamThread(width=int(self.width /2.5), height=int(self.height /2.7), cam_name='CamTwo', url = self.cam2_url)
 
         self.camThree = QLabel()
         self.camThree.setMouseTracking(True)
-        self.camThree.mousePressEvent = self.getFullScreen
+        self.camThree.mousePressEvent = self.getScreen3
         self.camThree.setStyleSheet("background-color:black; border-width:3px; border-style:solid; border-color:#0c7b93;")
         self.camThree.setFixedSize((int(self.width/2.5)), int(self.height/2.7))
         self.camThreeTitle = QLabel(" Camera 3")
         self.camThreeTitle.setStyleSheet("font-size:{0}px; font-weight:bold; color:black;".format(int(height / 56)))
-        self.camThreeThread = CamThread(width=int(self.width /2.5), height=int(self.height /2.7), cam_name='CamOne')
+        self.camThreeThread = CamThread(width=int(self.width /2.5), height=int(self.height /2.7), cam_name='CamThree', url = self.cam3_url)
 
         self.camFour = QLabel()
         self.camFour.setMouseTracking(True)
-        self.camFour.mousePressEvent = self.getFullScreen
+        self.camFour.mousePressEvent = self.getScreen4
         self.camFour.setStyleSheet("background-color:black; border-width:3px; border-style:solid; border-color:#0c7b93;")
         self.camFour.setFixedSize((int(self.width/2.5)), int(self.height/2.7))
         self.camFourTitle = QLabel(" Camera 4")
         self.camFourTitle.setStyleSheet("font-size:{0}px; font-weight:bold; color:black;".format(int(height / 56)))
-        self.camFourThread = CamThread(width=int(self.width /2.5), height=int(self.height /2.7), cam_name='CamOne')
+        self.camFourThread = CamThread(width=int(self.width /2.5), height=int(self.height /2.7), cam_name='CamFour', url = self.cam4_url)
 
         #self.camWidget = QWidget()
         #self.camWidget.setLayout(self.camOne)
@@ -238,6 +262,39 @@ class MainWindow(QMainWindow):
     def EnableButton(self):
         self.Nine.setDisabled(False)
         self.close_Btn.setDisabled(False)
+        self.click_Screen = True
+
+    def getScreen1(self,event):
+        if self.click_Screen == False:
+            return
+        self.getFullScreen(self)
+        self.Full_Screen = Full_Screen(self.width, self.height, self, self.folder_path, "Four", "Camera 1", self.cam1_url)
+        self.Full_Screen.show()   
+        self.close()
+
+    def getScreen2(self,event):
+        if self.click_Screen == False:
+            return
+        self.getFullScreen(self)
+        self.Full_Screen = Full_Screen(self.width, self.height, self, self.folder_path, "Four", "Camera 2", self.cam2_url)
+        self.Full_Screen.show()   
+        self.close()
+
+    def getScreen3(self,event):
+        if self.click_Screen == False:
+            return
+        self.getFullScreen(self)
+        self.Full_Screen = Full_Screen(self.width, self.height, self, self.folder_path, "Four", "Camera 3", self.cam3_url)
+        self.Full_Screen.show()   
+        self.close()
+
+    def getScreen4(self,event):
+        if self.click_Screen == False:
+            return
+        self.getFullScreen(self)
+        self.Full_Screen = Full_Screen(self.width, self.height, self, self.folder_path, "Four", "Camera 4", self.cam4_url)
+        self.Full_Screen.show()   
+        self.close()
         
 
     def getFullScreen(self,event):
@@ -245,9 +302,7 @@ class MainWindow(QMainWindow):
         self.camTwoThread.Flag_Cam = True
         self.camThreeThread.Flag_Cam = True
         self.camFourThread.Flag_Cam = True
-        self.Full_Screen = Full_Screen(self.width, self.height, self, self.folder_path, "Four")
-        self.Full_Screen.show()   
-        self.close()
+        
 
     def goToNine(self):
         self.camOneThread.Flag_Cam = True
